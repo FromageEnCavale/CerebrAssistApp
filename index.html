@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chat with our fast AI assistant and get instant answers.">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>CerebrAssist</title>
+</head>
+<body>
+    <header>
+        <div></div>
+        <img class="logo" src="assets/logo.svg" alt="logo">
+        <button id="deleteButton" class="deleteButton" type="button">Delete chat</button>
+    </header>
+    <main>
+        <div id="messagesContainer" class="messagesContainer"></div>
+    </main>
+    <footer>
+        <div class="inputContainer">
+            <textarea id="userInput" class="userInput" placeholder="Your message..."></textarea>
+            <button id="sendButtonContainer" class="sendButtonContainer" type="button">
+                <img id="sendButton" class="sendButton" src="assets/logo.svg" alt="send button">
+            </button>
+        </div>
+    </footer>
+</body>
+<script type="module" src="scripts/script.js" defer></script>
+</html>
