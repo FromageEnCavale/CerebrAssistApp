@@ -1,5 +1,11 @@
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15.0.7/+esm'
 import dompurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.2.4/+esm'
+import { injectSpeedInsights } from '@vercel/speed-insights';
+import { inject } from '@vercel/analytics';
+
+injectSpeedInsights();
+
+inject();
 
 const deleteButton = document.getElementById("deleteButton");
 
