@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "@cerebras/cerebras_cloud_sdk": "^1.23.0"
   }
