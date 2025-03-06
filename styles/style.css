@@ -92,7 +92,7 @@ body {
     color: var(--text);
     background-color: var(--background);
     font-family: system-ui, sans-serif;
-    font-weight: 400 700;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1.6;
 }
@@ -168,6 +168,7 @@ main {
     margin-left: auto;
     padding: 10px 14px;
     border-radius: 14px 14px 4px 14px;
+    white-space: pre-wrap;
     background-color: var(--accent);
 }
 
