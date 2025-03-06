@@ -13,7 +13,7 @@ const sendButton = document.getElementById('sendButton');
 
 let conversationHistory = [];
 
-let maxMessages = 20;
+let maxCharacters = 8000;
 
 function parseMarkdown(text) {
 
@@ -23,9 +23,19 @@ function parseMarkdown(text) {
 
 }
 
+function calculateHistorySize(history) {
+
+    return history.reduce((total, message) => {
+
+        return total + message.role.length + message.content.length;
+
+    }, 0);
+
+}
+
 function adjustHistory() {
 
-    while (conversationHistory.length > maxMessages) {
+    while (conversationHistory.length > 1 && calculateHistorySize(conversationHistory) > maxCharacters) {
 
         conversationHistory.shift();
 
