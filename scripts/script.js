@@ -137,7 +137,12 @@ userInput.addEventListener('input', function () {
 
 });
 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 userInput.addEventListener('keydown', (e) => {
+
+    if (isMobile) return;
+
 
     if (e.key === 'Enter' && !e.shiftKey) {
 
