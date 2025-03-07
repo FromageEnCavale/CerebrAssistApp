@@ -137,22 +137,23 @@ userInput.addEventListener('input', function () {
 
 });
 
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-userInput.addEventListener('keydown', (e) => {
+if (!isMobileDevice()) {
 
-    if (isMobile) return;
+    userInput.addEventListener('keydown', (e) => {
 
+        if (e.key === 'Enter' && !e.shiftKey) {
 
-    if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
 
-        e.preventDefault();
+            sendMessage();
 
-        sendMessage();
+        }
 
-    }
+    });
 
-});
+}
 
 deleteButton.addEventListener("click", () => {
 
