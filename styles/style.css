@@ -220,6 +220,7 @@ footer {
 }
 
 /* ----- MARKDOWN ----- */
+
 /*
 code {
     padding: 4px;
@@ -248,6 +249,7 @@ ul, ol {
     list-style-position: inside;
 }
 */
+
 /* ----- MEDIA QUERY ----- */
 
 @media (max-width: 770px) {
@@ -268,6 +270,7 @@ ul, ol {
     }
 
     .inputContainer {
+        padding: 10px 14px 34px 14px;
         border-radius: 14px 14px 0 0;
     }
 
