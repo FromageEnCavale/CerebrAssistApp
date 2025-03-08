@@ -8,15 +8,9 @@ if (!apiKey) {
 
 }
 
-const prePrompt = {
-    role: 'system',
-    content: 'Vous êtes un réparateur de voiture ultra qualifié'
-};
-
 const cerebrasClient = new Cerebras({
 
-    apiKey,
-    defaultMessages: [prePrompt]
+    apiKey
 
 });
 
