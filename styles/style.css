@@ -221,7 +221,6 @@ footer {
 
 /* ----- MARKDOWN ----- */
 
-/*
 code {
     padding: 4px;
     border-radius: 4px;
@@ -248,7 +247,6 @@ pre code {
 ul, ol {
     list-style-position: inside;
 }
-*/
 
 /* ----- MEDIA QUERY ----- */
 
