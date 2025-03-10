@@ -31,9 +31,10 @@ function parseMarkdown(text) {
     });
 
     // 2. Titres (Headers) : de "# Titre" à "###### Titre"
+    // On ajoute un saut de ligne ("\n") à la fin pour forcer la séparation avec le paragraphe suivant
     text = text.replace(/^(#{1,6})\s+(.*)$/gm, function(match, hashes, title) {
         const level = hashes.length;
-        return `<h${level}>${title}</h${level}>`;
+        return `<h${level}>${title}</h${level}>\n`;
     });
 
     // 3. Règles horizontales (Horizontal rules) : '---' ou '***'
@@ -43,17 +44,17 @@ function parseMarkdown(text) {
     text = text.replace(/^\s*>+\s?(.*)$/gm, '<blockquote>$1</blockquote>');
 
     // 5. Listes non ordonnées :
-    //    - Les lignes débutant par '-', '+' ou '*' sont converties en éléments de liste <li>
+    //    - Convertit les lignes débutant par '-', '+' ou '*' en éléments de liste <li>
     text = text.replace(/^(?:-|\+|\*)\s+(.*)$/gm, '<li>$1</li>');
-    //    - Les lignes consécutives d'éléments <li> sont enveloppées dans une balise <ul>
+    //    - Enveloppe les éléments <li> consécutifs dans une balise <ul>
     text = text.replace(/((<li>.*<\/li>\n?)+)/g, function(match) {
         return `<ul>\n${match}\n</ul>`;
     });
 
     // 6. Listes ordonnées :
-    //    - Les lignes commençant par un numéro suivi d'un point sont converties en <li>
+    //    - Convertit les lignes commençant par un numéro suivi d'un point en <li>
     text = text.replace(/^\d+\.\s+(.*)$/gm, '<li>$1</li>');
-    //    - Envelopper les éléments <li> en <ol>, sauf s'ils sont déjà dans une <ul>
+    //    - Enveloppe les éléments <li> consécutifs dans une balise <ol>, sauf s'ils sont déjà dans une <ul>
     text = text.replace(/((<li>.*<\/li>\n?)+)/g, function(match) {
         if (match.includes('<ul>')) return match;
         return `<ol>\n${match}\n</ol>`;
@@ -75,8 +76,8 @@ function parseMarkdown(text) {
     text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
 
     // 12. Gestion des paragraphes :
-    //     On sépare le texte sur deux retours à la ligne et on enveloppe chaque bloc dans un <p>,
-    //     sauf s'il commence déjà par une balise de bloc (ex : <h1>, <ul>, <pre>, etc.)
+    //     Découpe le texte en utilisant deux retours à la ligne consécutifs,
+    //     puis enveloppe chaque bloc dans une balise <p> si ce n'est pas déjà un élément block-level.
     const paragraphs = text.split(/\n\s*\n/);
     text = paragraphs.map(p => {
         if (/^\s*(<h\d>|<ul>|<ol>|<pre>|<blockquote>|<hr>)/.test(p.trim())) {
