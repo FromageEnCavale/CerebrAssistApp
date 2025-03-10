@@ -15,18 +15,7 @@ let conversationHistory = [];
 
 let maxCharacters = 8000;
 
-// Créez un renderer personnalisé pour marked
-const renderer = new marked.Renderer();
 
-renderer.code = function({ code, lang, escaped }) {
-    // Si une langue est spécifiée, on crée un label
-    const langLabel = lang ? `<div class="code-lang">${lang}</div>` : '';
-    // On ajoute l’attribut data-lang sur la balise <pre> et la classe sur <code>
-    return `<pre data-lang="${lang}">${langLabel}<code class="language-${lang}">${code}</code></pre>`;
-};
-
-// Configure marked pour utiliser ce renderer personnalisé
-marked.use({ renderer });
 
 function parseMarkdown(text) {
 
