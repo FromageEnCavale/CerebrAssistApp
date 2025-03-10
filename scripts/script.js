@@ -1,5 +1,4 @@
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15.0.7/+esm';
-import hljs from 'https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/+esm';
 import dompurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.2.4/+esm';
 
 const deleteButton = document.getElementById("deleteButton");
@@ -23,20 +22,6 @@ function parseMarkdown(text) {
     return dompurify.sanitize(rawHTML, { FORBID_ATTR: ['style'] });
 
 }
-
-marked.setOptions({
-
-    highlight: function (code, lang) {
-
-        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-
-        return hljs.highlight(code, { language }).value;
-
-    },
-
-    langPrefix: 'hljs language-',
-
-});
 
 function calculateHistorySize(history) {
 
@@ -69,8 +54,6 @@ function addMessage(role, content) {
     messagesContainer.appendChild(messageDiv);
 
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-    hljs.highlightAll();
 
     return messageDiv;
 
