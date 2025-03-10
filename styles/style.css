@@ -222,6 +222,7 @@ footer {
 /* ----- MARKDOWN ----- */
 
 .code-lang {
+    padding: 0 4px;
     font-size: 14px;
 }
 

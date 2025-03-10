@@ -18,12 +18,13 @@ let maxCharacters = 8000;
 const renderer = new marked.Renderer();
 
 renderer.code = function(token) {
-    // On récupère le code sans les backticks via token.text et la langue via token.lang
+
     const { text, lang } = token;
-    // On crée un label si une langue est spécifiée
+
     const langLabel = lang ? `<div class="code-lang">${lang}</div>` : '';
-    // On retourne le bloc <pre> avec un attribut data-lang et le bloc <code> avec la classe correspondante
+
     return `<pre data-lang="${lang}">${langLabel}<code class="language-${lang}">${text}</code></pre>`;
+
 };
 
 marked.use({ renderer });
