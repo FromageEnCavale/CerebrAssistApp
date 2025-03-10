@@ -245,7 +245,7 @@ pre code {
 }
 
 ul, ol {
-    list-style-position: inside;
+    padding-left: 28px;
 }
 
 /* ----- MEDIA QUERY ----- */
