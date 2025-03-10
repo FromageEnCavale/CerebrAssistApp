@@ -53,7 +53,8 @@ function addMessage(role, content) {
 
     messagesContainer.appendChild(messageDiv);
 
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    const extraSpace = 100; // Ajuste la valeur en pixels selon ton besoin
+    messagesContainer.scrollTop = messagesContainer.scrollHeight - extraSpace;
 
     return messageDiv;
 
