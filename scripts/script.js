@@ -80,10 +80,13 @@ function parseMarkdown(text) {
     //     puis enveloppe chaque bloc dans une balise <p> si ce n'est pas déjà un élément block-level.
     const paragraphs = text.split(/\n\s*\n/);
     text = paragraphs.map(p => {
-        if (/^\s*(<h\d>|<ul>|<ol>|<pre>|<blockquote>|<hr>)/.test(p.trim())) {
-            return p;
+        const trimmed = p.trim();
+        if (trimmed === '') {
+            return ''; // Ignorer les paragraphes vides
+        } else if (/^(<h\d>|<ul>|<ol>|<pre>|<blockquote>|<hr>)/.test(trimmed)) {
+            return trimmed; // Conserver les éléments de bloc existants
         } else {
-            return `<p>${p.trim()}</p>`;
+            return `<p>${trimmed}</p>`; // Envelopper le contenu dans une balise <p>
         }
     }).join('\n');
 
