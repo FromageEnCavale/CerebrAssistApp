@@ -231,7 +231,7 @@ code {
 pre {
     width: 100%;
     padding: 10px 14px;
-    border-radius: 14px;
+    border-radius: 4px;
     overflow-x: auto;
     scrollbar-width: none;
     border: 2px solid var(--accent);
