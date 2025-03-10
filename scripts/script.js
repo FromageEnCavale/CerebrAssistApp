@@ -1,7 +1,5 @@
-// Marked.js
-/*import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15.0.7/+esm';*/
-
-import dompurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.2.4/+esm';
+/*import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15.0.7/+esm';
+import dompurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.2.4/+esm';*/
 
 const deleteButton = document.getElementById("deleteButton");
 
@@ -17,20 +15,13 @@ let conversationHistory = [];
 
 let maxCharacters = 8000;
 
-function parseMarkdown(text) {
+/*function parseMarkdown(text) {
 
-    // Marked.js
-    /*const rawHTML = marked(text);*/
-
-    // New
-    const paragraphs = text.split(/\n\s*\n/);
-
-    // New
-    const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
+    const rawHTML = marked(text);
 
     return dompurify.sanitize(rawHTML, { FORBID_ATTR: ['style'] });
 
-}
+}*/
 
 function calculateHistorySize(history) {
 
@@ -116,7 +107,11 @@ async function sendMessage() {
 
             responseText += chunk;
 
-            responseElement.innerHTML = parseMarkdown(responseText);
+            // Raw text
+            responseElement.textContent = responseText;
+
+            // Parse Markdown
+            /*responseElement.innerHTML = parseMarkdown(responseText);*/
 
         }
 
