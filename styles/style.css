@@ -222,7 +222,6 @@ footer {
 /* ----- MARKDOWN ----- */
 
 .code-lang {
-    padding: 4px 0;
     font-size: 14px;
 }
 
@@ -236,10 +235,10 @@ code {
 pre {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 24px;
     width: 100%;
-    padding: 10px 14px;
-    border-radius: 4px;
+    padding: 20px 24px;
+    border-radius: 10px;
     overflow-x: auto;
     scrollbar-width: none;
     border: 2px solid var(--accent);
