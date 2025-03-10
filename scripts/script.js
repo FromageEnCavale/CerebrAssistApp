@@ -23,10 +23,71 @@ function parseMarkdown(text) {
     /*const rawHTML = marked(text);*/
 
     // New
-    const paragraphs = text.split(/\n\s*\n/);
+    /*const paragraphs = text.split(/\n\s*\n/);*/
 
     // New
-    const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
+    /*const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');*/
+
+    // 1. Gestion des blocs de code multi-lignes (entre triple backticks)
+    text = text.replace(/```([\s\S]*?)```/g, function(match, codeContent) {
+        return `<pre><code>${codeContent}</code></pre>`;
+    });
+
+    // 2. Titres (Headers) : de "# Titre" à "###### Titre"
+    text = text.replace(/^(#{1,6})\s+(.*)$/gm, function(match, hashes, title) {
+        const level = hashes.length;
+        return `<h${level}>${title}</h${level}>`;
+    });
+
+    // 3. Règles horizontales (Horizontal rules) : '---' ou '***'
+    text = text.replace(/^\s*(\*{3,}|-{3,})\s*$/gm, '<hr>');
+
+    // 4. Blockquotes (Citations) : lignes commençant par '>'
+    text = text.replace(/^\s*>+\s?(.*)$/gm, '<blockquote>$1</blockquote>');
+
+    // 5. Listes non ordonnées :
+    //    - Les lignes débutant par '-', '+' ou '*' sont converties en éléments de liste <li>
+    text = text.replace(/^(?:-|\+|\*)\s+(.*)$/gm, '<li>$1</li>');
+    //    - Les lignes consécutives d'éléments <li> sont enveloppées dans une balise <ul>
+    text = text.replace(/((<li>.*<\/li>\n?)+)/g, function(match) {
+        return `<ul>\n${match}\n</ul>`;
+    });
+
+    // 6. Listes ordonnées :
+    //    - Les lignes commençant par un numéro suivi d'un point sont converties en <li>
+    text = text.replace(/^\d+\.\s+(.*)$/gm, '<li>$1</li>');
+    //    - Envelopper les éléments <li> en <ol>, sauf s'ils sont déjà dans une <ul>
+    text = text.replace(/((<li>.*<\/li>\n?)+)/g, function(match) {
+        if (match.includes('<ul>')) return match;
+        return `<ol>\n${match}\n</ol>`;
+    });
+
+    // 7. Code inline : texte entouré par un seul backtick `code`
+    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // 8. Texte en gras : **gras** ou __gras__
+    text = text.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
+
+    // 9. Texte en italique : *italique* ou _italique_
+    text = text.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
+
+    // 10. Liens : [texte](url)
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+    // 11. Images : ![alt](url)
+    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
+
+    // 12. Gestion des paragraphes :
+    //     On sépare le texte sur deux retours à la ligne et on enveloppe chaque bloc dans un <p>,
+    //     sauf s'il commence déjà par une balise de bloc (ex : <h1>, <ul>, <pre>, etc.)
+    const paragraphs = text.split(/\n\s*\n/);
+    text = paragraphs.map(p => {
+        if (/^\s*(<h\d>|<ul>|<ol>|<pre>|<blockquote>|<hr>)/.test(p.trim())) {
+            return p;
+        } else {
+            return `<p>${p.trim()}</p>`;
+        }
+    }).join('\n');
 
     return dompurify.sanitize(rawHTML, { FORBID_ATTR: ['style'] });
 
