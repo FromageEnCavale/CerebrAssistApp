@@ -70,6 +70,8 @@ function addMessage(role, content) {
 
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
+    hljs.highlightAll();
+
     return messageDiv;
 
 }
