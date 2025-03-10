@@ -15,20 +15,6 @@ let conversationHistory = [];
 
 let maxCharacters = 8000;
 
-const renderer = new marked.Renderer();
-
-renderer.code = function(token) {
-
-    const { text, lang } = token;
-
-    const langLabel = lang ? `<div class="code-lang">${lang}</div>` : '';
-
-    return `<pre data-lang="${lang}">${langLabel}<code class="language-${lang}">${text}</code></pre>`;
-
-};
-
-marked.use({ renderer });
-
 function parseMarkdown(text) {
 
     const rawHTML = marked(text);
