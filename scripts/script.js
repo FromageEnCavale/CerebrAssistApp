@@ -26,7 +26,7 @@ function parseMarkdown(text) {
     /*const paragraphs = text.split(/\n\s*\n/);*/
 
     // New
-    /*const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');*/
+    const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
 
     // 1. Gestion des blocs de code multi-lignes (entre triple backticks)
     text = text.replace(/```([\s\S]*?)```/g, function(match, codeContent) {
