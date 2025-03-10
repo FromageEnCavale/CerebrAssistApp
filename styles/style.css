@@ -234,6 +234,7 @@ code {
 
 pre {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     width: 100%;
     padding: 10px 14px;
