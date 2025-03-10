@@ -221,6 +221,10 @@ footer {
 
 /* ----- MARKDOWN ----- */
 
+.code-lang {
+    font-size: 14px;
+}
+
 code {
     padding: 4px;
     border-radius: 4px;
@@ -229,6 +233,8 @@ code {
 }
 
 pre {
+    display: flex;
+    gap: 10px;
     width: 100%;
     padding: 10px 14px;
     border-radius: 4px;
