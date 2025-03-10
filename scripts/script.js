@@ -18,14 +18,14 @@ let maxCharacters = 8000;
 // Créez un renderer personnalisé pour marked
 const renderer = new marked.Renderer();
 
-renderer.code = function(code, language, isEscaped) {
+renderer.code = function({ code, lang, escaped }) {
     // Si une langue est spécifiée, on crée un label
-    const langLabel = language ? `<div class="code-lang">${language}</div>` : '';
-    // On peut également ajouter l’attribut data-lang sur la balise <pre>
-    return `<pre data-lang="${language}">${langLabel}<code class="language-${language}">${code}</code></pre>`;
+    const langLabel = lang ? `<div class="code-lang">${lang}</div>` : '';
+    // On ajoute l’attribut data-lang sur la balise <pre> et la classe sur <code>
+    return `<pre data-lang="${lang}">${langLabel}<code class="language-${lang}">${code}</code></pre>`;
 };
 
-// Configure marked pour utiliser ce renderer
+// Configure marked pour utiliser ce renderer personnalisé
 marked.use({ renderer });
 
 function parseMarkdown(text) {
