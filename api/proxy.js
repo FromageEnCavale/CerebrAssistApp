@@ -34,13 +34,23 @@ export default async function handler(req, res) {
 
     }
 
+    // New
+    const prePrompt = {
+        role: 'system',
+        content: 'Donne des réponses simples et succinctes, détaille seulement si on te le demande. Tu dois être un outil simple et rapide qui donne une réponse claire à la question posée.'
+    };
+
+    // New
+    const updatedMessages = [prePrompt, ...messages];
+
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
 
     try {
 
         const stream = await cerebrasClient.chat.completions.create({
 
-            messages,
+            // New
+            messages: updatedMessages,
 
             model: 'llama-3.3-70b',
 
