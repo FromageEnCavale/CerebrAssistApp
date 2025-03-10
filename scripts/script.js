@@ -25,9 +25,6 @@ function parseMarkdown(text) {
     // New
     /*const paragraphs = text.split(/\n\s*\n/);*/
 
-    // New
-    const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
-
     // 1. Gestion des blocs de code multi-lignes (entre triple backticks)
     text = text.replace(/```([\s\S]*?)```/g, function(match, codeContent) {
         return `<pre><code>${codeContent}</code></pre>`;
@@ -88,6 +85,9 @@ function parseMarkdown(text) {
             return `<p>${p.trim()}</p>`;
         }
     }).join('\n');
+
+    // New
+    const rawHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
 
     return dompurify.sanitize(rawHTML, { FORBID_ATTR: ['style'] });
 
